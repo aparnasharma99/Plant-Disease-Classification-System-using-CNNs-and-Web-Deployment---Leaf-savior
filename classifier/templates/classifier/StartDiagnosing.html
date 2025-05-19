@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaf Savior - Start Diagnosing</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <table width="100%">
+            <tr>
+                <td width="45%" style="text-align: right;"><img src="{% static 'logo.png' %}" alt="Logo"/></td>
+                <td width="10%"></td>
+                <td width="45%" style="text-align: left;"><h1>Leaf Savior <h3> - AI Powered Plant Health Monitoring</h3> </h1></td>
+            </tr>
+        </table>
+    </header>
+    <div class="container">
+        <h2>Start Diagnosing</h2>
+        <p>Upload an image of the leaf to diagnose the plant disease:</p>
+
+        <!-- Form to upload the image -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'start_diagnosing' %}">
+            {% csrf_token %}
+            <label for="imageInput">Select a leaf image: </label>
+            <input type="file" name="image" id="imageInput" accept="image/*" required onchange="showImagePreview(this);">
+            <!-- Button to submit the image -->
+            <button type="submit">Predict</button>
+            <br>
+
+            <!-- Image preview area -->
+            <div id="imagePreview" style="display: flex; margin-top: 20px;">
+                <div id="imageContainer" style="flex: 1; text-align: center;">
+                    <img id="previewImg" src="" alt="Selected Image" style="display:none; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
+                    {% if image_base64 %}
+                        <div style="display: flex; margin-top: 20px;">
+                            <div style="flex: 1; text-align: center;">
+                                <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="resultContainer" style="flex: 1; text-align: center; padding-left: 20px;">
+                    {% if predicted_class_name %}
+                        <h3>Prediction Result:</h3>
+                        <p><strong>Name: {{ predicted_class_name }}</strong></p>
+                        <p><strong> Confidence Score: </strong>{{ predicted_probability|floatformat:2 }}</p>
+                        <p><strong> Disease Information: </strong><br> {{ disease_description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            
+        </form>
+        <!-- Display image if available -->
+    </div>
+    <footer>
+        <p>Created by [Aparna Sharma (23039632)] under the guidance of her Supervisor - [Dr Bappaditya Mandal].
+        </p>
+    </footer>
+    <script>
+        // Function to show image preview
+        function showImagePreview(input) {
+            const previewImg = document.getElementById('previewImg');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                
+                // When the image is loaded, display it in the img tag
+                reader.onload = function (e) {
+                    previewImg.style.display = 'block';
+                    previewImg.src = e.target.result;
+                };
+
+                // Read the selected image file as a Data URL
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.style.display = 'none';
+                previewImg.src = '';
+            }
+        }
+    </script>
+</body>
+</html>

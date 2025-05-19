@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaf Savior - Home</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <table width="100%">
+            <tr>
+                <td width="45%" style="text-align: right;"><img src="{% static 'logo.png' %}" alt="Logo"/></td>
+                <td width="10%"></td>
+                <td width="45%" style="text-align: left;"><h1>Leaf Savior <h3> - AI Powered Plant Health Monitoring</h3> </h1></td>
+            </tr>
+        </table>
+    </header>
+    <div class="content">
+        <br><p>Welcome to <b>Leaf Savior - AI Powered Plant Health Monitoring</b></p><br><hr><br>
+        <p>
+            The Plant Disease Detection Web Application! This platform is designed to help farmers, gardeners, and agricultural 
+            professionals quickly and accurately identify plant diseases from images of leaves. 
+            Using state-of-the-art deep learning model -  EfficientNetB3, 
+            the app analyzes leaf images to detect over 26 different diseases across 14 plant species with a high degree of accuracy. 
+            <br><br><br><br>Built on a robust backend powered by the Django framework, our application provides real-time predictions with confidence scores, 
+            making it a valuable tool for timely and effective crop management. <br><br><br>
+            <u><i>Simply upload a photo of a leaf, and let our advanced AI models do the rest!</i></u>
+        </p><br><hr> <br><br>
+        <a href="{% url 'start_diagnosing' %}" class="button">Start Diagnosing</a> <br><br><br><br>
+    </div>
+    <footer>
+        <p>Created by [Aparna Sharma (23039632)] under the guidance of her Supervisor - [Dr Bappaditya Mandal].
+        </p>
+    </footer>
+</body>
+</html>
