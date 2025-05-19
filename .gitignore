@@ -1,0 +1,21 @@
+```gitignore
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Environment files and logs
+*.env
+*.log
+
+# Virtual environments
+venv/
+env/
+
+# Django-specific files
+db.sqlite3
+*.pot
+*.pyc
+staticfiles/
+
+# VS Code settings
+.vscode/
